@@ -15,19 +15,30 @@ pipeline {
             }
         }
 
+        
         stage('Build Docker Image') {
             steps {
                 script {
                     env.IMAGE_TAG = "${env.BUILD_NUMBER}"
+                }
 
+                withCredentials([
+                    string(
+                        credentialsId: 'supabase-anon-key',
+                        variable: 'SUPABASE_ANON_KEY'
+                    )
+                ]) {
                     sh '''
+                        set +x
                         docker build \
                           --build-arg NEXT_PUBLIC_SUPABASE_URL="$SUPABASE_URL" \
+                          --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY" \
                           -t "$DOCKER_IMAGE:$IMAGE_TAG" .
                     '''
                 }
             }
         }
+
 
         stage('Push to Docker Hub') {
             steps {
