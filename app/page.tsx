@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, type FormEvent } from 'react';
@@ -51,6 +52,7 @@ export default function LandingPage() {
           <Link href="/" className="text-2xl font-bold text-[#004ac6]">
             SkillBridge
           </Link>
+
           <div className="flex items-center gap-4">
             <Link
               href="/explore"
@@ -58,6 +60,7 @@ export default function LandingPage() {
             >
               Explore Skills
             </Link>
+
             {session ? (
               <Button
                 onClick={() => router.push('/dashboard')}
@@ -74,6 +77,7 @@ export default function LandingPage() {
                 >
                   Log in
                 </Button>
+
                 <Button
                   onClick={() => router.push('/register')}
                   className="h-auto rounded-lg bg-[#004ac6] px-4 py-2 text-sm font-bold text-white hover:bg-[#003b9e]"
@@ -95,8 +99,10 @@ export default function LandingPage() {
           </div>
 
           <h1 className="max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-6xl">
-            Find the right campus skill.{' '}
-            <span className="text-[#004ac6]">Offer yours.</span>
+            Build your future here.{' '}
+            <span className="text-[#004ac6]">
+              Share your skills.
+            </span>
           </h1>
 
           <p className="max-w-2xl text-base text-gray-600 sm:text-lg">
@@ -106,14 +112,19 @@ export default function LandingPage() {
 
           {/* AI Search Bar on Hero */}
           <div className="w-full max-w-2xl mt-4">
-            <form onSubmit={handleSearchSubmit} className="relative flex items-center shadow-lg rounded-2xl">
+            <form
+              onSubmit={handleSearchSubmit}
+              className="relative flex items-center shadow-lg rounded-2xl"
+            >
               <Search className="absolute left-4 h-5 w-5 text-gray-400" />
+
               <Input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Describe what you need (e.g. 'someone to edit a college fest video', 'Next.js developer')..."
                 className="h-14 w-full rounded-2xl border-2 border-transparent bg-white pl-12 pr-36 text-sm text-gray-900 shadow-md transition-all focus:border-[#004ac6] focus:ring-0"
               />
+
               <Button
                 type="submit"
                 className="absolute right-2 h-10 gap-1.5 rounded-xl bg-[#004ac6] px-4 text-xs font-bold text-white hover:bg-[#003b9e] shadow-sm"
@@ -125,7 +136,10 @@ export default function LandingPage() {
 
             {/* Quick Suggestions Chips */}
             <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-              <span className="text-xs font-semibold text-gray-400">Popular:</span>
+              <span className="text-xs font-semibold text-gray-400">
+                Popular:
+              </span>
+
               {QUICK_SEARCH_CHIPS.map((chip) => (
                 <button
                   key={chip}
@@ -148,6 +162,7 @@ export default function LandingPage() {
               {session ? 'Explore All Services' : 'Get Started'}
               <ArrowRight className="h-4 w-4" />
             </Button>
+
             <Button
               variant="outline"
               onClick={() => router.push('/explore')}
@@ -179,37 +194,46 @@ export default function LandingPage() {
           ].map((f) => (
             <div
               key={f.title}
-              className="rounded-2xl border border-border bg-white p-6 shadow-sm hover:border-[#004ac6]/30 transition-all"
+              className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f0f4ff] text-[#004ac6] mb-4">
-                <f.icon className="h-6 w-6" />
-              </div>
-              <h3 className="mb-2 text-lg font-bold text-gray-900">{f.title}</h3>
-              <p className="text-xs leading-relaxed text-gray-600">{f.desc}</p>
+              <f.icon className="mb-4 h-8 w-8 text-[#004ac6]" />
+              <h2 className="mb-2 text-lg font-bold text-gray-900">
+                {f.title}
+              </h2>
+              <p className="text-sm leading-6 text-gray-600">
+                {f.desc}
+              </p>
             </div>
           ))}
         </section>
+
+        {/* Trust Indicators */}
+        <section className="mx-auto grid w-full max-w-screen-xl grid-cols-1 gap-8 px-6 pb-16 sm:grid-cols-3">
+          <div className="flex items-center justify-center gap-3">
+            <CheckCircle2 className="h-6 w-6 text-[#004ac6]" />
+            <span className="text-sm font-semibold text-gray-700">
+              Student-focused services
+            </span>
+          </div>
+
+          <div className="flex items-center justify-center gap-3">
+            <Clock className="h-6 w-6 text-[#004ac6]" />
+            <span className="text-sm font-semibold text-gray-700">
+              Flexible collaboration
+            </span>
+          </div>
+
+          <div className="flex items-center justify-center gap-3">
+            <Star className="h-6 w-6 text-[#004ac6]" />
+            <span className="text-sm font-semibold text-gray-700">
+              Skills that build careers
+            </span>
+          </div>
+        </section>
       </main>
 
-      {/* Footer */}
-      <footer className="flex w-full items-center justify-between border-t border-gray-100 bg-white px-6 py-6">
-        <div className="flex flex-col items-start">
-          <h2 className="pb-1 text-xl font-bold text-[#004ac6]">SkillBridge</h2>
-          <p className="text-xs font-medium text-gray-500">
-            © 2026 SkillBridge. Built for students, by students.
-          </p>
-        </div>
-        <nav>
-          <ul className="flex items-center gap-6">
-            {['About', 'Terms', 'Privacy', 'Support'].map((link) => (
-              <li key={link}>
-                <span className="cursor-pointer text-xs font-medium text-gray-600 hover:text-[#004ac6]">
-                  {link}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <footer className="border-t border-gray-100 bg-white px-6 py-6 text-center text-sm text-gray-500">
+        © {new Date().getFullYear()} SkillBridge. Connecting student skills with opportunities.
       </footer>
     </div>
   );
